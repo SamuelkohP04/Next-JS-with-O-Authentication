@@ -21,17 +21,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
-          {session ? (
-            <LogOut />
-          ) : (
-            <Link href="/login">
-              Login
-            </Link>
-          )}
-        </nav>
-        {children}
-      </body>
+      <nav>
+        {!!session && <LogOut />}
+
+        {!!session && 
+          <Link href='/login'>
+            Login
+          </Link>}
+      </nav>
+        {children}</body>
+    
+    
     </html>
   );
 }

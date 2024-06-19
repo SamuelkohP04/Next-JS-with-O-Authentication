@@ -11,6 +11,7 @@ const RegisterForm = () => {
       body: JSON.stringify({
         email: formData.get("email"),
         password: formData.get("password"),
+        redirect: false,
       }),
       headers: {
         "Content-Type": "application/json",

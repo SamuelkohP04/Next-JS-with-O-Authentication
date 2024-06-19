@@ -1,9 +1,11 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation"; // updated import for useRouter
 import React from "react";
 
-const RegisterForm = () => {
+export default function Form() {
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -14,6 +16,10 @@ const RegisterForm = () => {
     });
 
     console.log({ response });  
+    if (!response?.error) {
+      router.push('/');
+      router.refresh();
+    }
   };
 
   return (
@@ -35,6 +41,4 @@ const RegisterForm = () => {
       </button>
     </form>
   );
-};
-
-export default RegisterForm;
+}
