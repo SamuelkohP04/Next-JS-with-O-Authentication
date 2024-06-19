@@ -3,10 +3,10 @@
 
 import { signOut } from 'next-auth/react';
 
-export default function Logout({ children }: { children?: React.ReactNode }) {
-  return (
+export default function Logout() {
+  return(
     <span onClick={() => signOut()}>
-      {children || 'Logout'}
+      Logout
     </span>
-  );
+  )
 }

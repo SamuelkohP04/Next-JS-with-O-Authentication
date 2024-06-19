@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
+import LogOut from "./register/logout";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,20 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        
+      <nav>
+        {!!session && <LogOut />}
+
+        {!!session && 
+          <Link href='/login'>
+            Login
+          </Link>}
+
+      </nav>
+        {children}</body>
+    
+    
     </html>
   );
 }
