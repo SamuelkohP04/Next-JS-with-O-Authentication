@@ -10,8 +10,9 @@ export default function Form() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const response = await signIn('credentials', {
-      email: formData.get('email'),
-      password: formData.get('password'),
+
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
       redirect: false,
     });
 
