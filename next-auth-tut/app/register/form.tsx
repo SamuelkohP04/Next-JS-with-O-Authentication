@@ -1,36 +1,43 @@
-'use client';
+"use client";
 
-import { FormEvent } from 'react';
+import React from "react";
 
-export default function Form() {
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+const RegisterForm = () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const response = await fetch(`/api/auth/register`, {
-      method: 'POST',
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
       body: JSON.stringify({
-        email: formData.get('email'),
-        password: formData.get('password'),
+        email: formData.get("email"),
+        password: formData.get("password"),
       }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     console.log({ response });
   };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-2 mx-auto max-w-md mt-10"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 mx-auto max-w-md mt-10">
       <input
-        name="email"
         className="border border-black text-black"
         type="email"
+        name="email"
+        placeholder="Email"
       />
       <input
-        name="password"
-        className="border border-black  text-black"
+        className="border border-black text-black"
         type="password"
+        name="password"
+        placeholder="Password"
       />
-      <button type="submit">Register</button>
+      <button type="submit" className="border border-black">
+        Register
+      </button>
     </form>
   );
-}
+};
+
+export default RegisterForm;
