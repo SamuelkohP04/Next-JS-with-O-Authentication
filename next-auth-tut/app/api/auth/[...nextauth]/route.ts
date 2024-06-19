@@ -4,6 +4,10 @@ import {compare} from 'bcrypt'
 import {sql} from '@vercel/postgres';
 
 const handler = NextAuth({
+  session: {
+    strategy: 'jwt',
+  
+  },
   providers: [
     CredentialsProvider({
       credentials: {
@@ -15,6 +19,19 @@ const handler = NextAuth({
         const response = await sql `
         SELECT * FROM users WHERE emai${credentials?.email}`;
         const user = response.rows[0];
+        
+        const passwordCorrect = await compare(
+          credentials?.password || '',
+          user.password
+        );
+        
+        console.log({ passwordCorrect });
+        if (passwordCorrect) {
+          return {
+            id: user.id,
+            email: user.email,
+          }
+        }
         console.log({credentials});
         return null;
       },
