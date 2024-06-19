@@ -7,11 +7,13 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    signIn('credentials', {
+    const response = await signIn('credentials', {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
       redirect: false,
     });
+
+    console.log({ response });  
   };
 
   return (
