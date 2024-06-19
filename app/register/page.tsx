@@ -1,24 +1,13 @@
-import React, {FormEvent} from 'react';
-import Form from './form';
+import { redirect } from "next/navigation";
+import Form from "./form";
+import { getServerSession } from "next-auth";
 
 export default async function RegisterPage() {
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    const formData = new FormData(e.currentTarget);
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: formData.get('email'),
-        password: formData.get('password'),
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log(response);
-  };
-
-  return <Form />;
+  const session = await getServerSession();
+  if (session) {
+    redirect('/');
+  }
+  return (
+    <Form />
+  )
 }
