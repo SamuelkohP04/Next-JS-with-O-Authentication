@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
+import Form from './form';
 
-export default function RegisterPage() {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+export default async function RegisterPage() {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     const formData = new FormData(e.currentTarget);
@@ -19,11 +20,5 @@ export default function RegisterPage() {
     console.log(response);
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 mx-auto max-w-md mt-10">
-      <input className="border border-black" type="email" name="email" placeholder="Email" />
-      <input className="border border-black" type="password" name="password" placeholder="Password" />
-      <button type="submit" className="border border-black">Register</button>
-    </form>
-  );
+  return <Form />;
 }
